@@ -1,0 +1,590 @@
+<?php
+
+add_action( 'cmb2_admin_init', 'progression_studios_page_meta_box' );
+function progression_studios_page_meta_box() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'progression_studios_';
+
+	/**
+	 * Sample metabox to demonstrate each field type included
+	 */
+	$progression_studios_cmb = new_cmb2_box( array(
+		'id'            => $prefix . 'metabox_page_settings',
+		'title'         => esc_html__('Page Settings', 'progression-elements-freehold'),
+		'object_types'  => array( 'page' ), // Post type,
+	) );
+	
+	
+	$progression_studios_slider_elementor_library_list =  array(
+		'' => esc_html__('No Slider', 'progression-elements-freehold'),
+	);
+	$progression_studios_elementor_slider_args = array('post_type' => 'elementor_library', 'posts_per_page' => 99);
+	$progression_studios_elementor_slider_posts = get_posts( $progression_studios_elementor_slider_args );
+	foreach($progression_studios_elementor_slider_posts as $progression_studios_elementor_post) {
+	    $progression_studios_slider_elementor_library_list[$progression_studios_elementor_post->ID] = $progression_studios_elementor_post->post_title;
+	}
+	
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Slider Template (Elementor)', 'progression-elements-freehold'),
+		'desc' => esc_html__('Choose a page builder template that will display at the top of your page.', 'progression-elements-freehold'),
+		'id'         => $prefix . 'slider_element',
+		'type'           => 'select',
+		'options'       => $progression_studios_slider_elementor_library_list, //Enter Taxonomy Slug
+	) );
+
+
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Sidebar Display', 'progression-elements-freehold'),
+		'id'         => $prefix . 'page_sidebar',
+		'type'       => 'select',
+		'options'     => array(
+			'left-sidebar'    => esc_html__( 'Left Sidebar', 'progression-elements-freehold' ),
+			'right-sidebar'    => esc_html__( 'Right Sidebar', 'progression-elements-freehold' ),
+			'hidden-sidebar'   => esc_html__( 'Hide Sidebar', 'progression-elements-freehold' ),
+			
+		),
+	) );
+	
+
+	
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Disable Page Title', 'progression-elements-freehold'),
+		'id'         => $prefix . 'disable_page_title',
+		'type'       => 'checkbox',
+	) );
+	
+}
+
+
+
+add_action( 'cmb2_admin_init', 'progression_studios_page_header_meta_box' );
+function progression_studios_page_header_meta_box() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'progression_studios_';
+
+	/**
+	 * Sample metabox to demonstrate each field type included
+	 */
+	$progression_studios_cmb = new_cmb2_box( array(
+		'id'            => $prefix . 'metabox_page_header',
+		'title'         => esc_html__('Header Settings', 'progression-elements-freehold'),
+		'object_types'  => array( 'page' ), // Post type,
+	) );
+	
+
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Custom logo for page', 'progression-elements-freehold'),
+		'desc' => esc_html__('Must be same size as the main logo.', 'progression-elements-freehold'),
+		'id'         => $prefix . 'custom_page_logo',
+		'type'         => 'file',
+		'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+	) );
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Disable Header', 'progression-elements-freehold'),
+		'id'         => $prefix . 'header_disabled',
+		'type'       => 'checkbox',
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Disable Footer', 'progression-elements-freehold'),
+		'id'         => $prefix . 'disable_footer_per_page',
+		'type'       => 'checkbox',
+	) );
+
+
+	
+}
+
+
+
+
+
+add_action( 'cmb2_admin_init', 'progression_studios_index_post_meta_box' );
+function progression_studios_index_post_meta_box() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'progression_studios_';
+
+	/**
+	 * Sample metabox to demonstrate each field type included
+	 */
+	$progression_studios_cmb = new_cmb2_box( array(
+		'id'            => $prefix . 'metabox_post',
+		'title'         => esc_html__('Post Settings', 'progression-elements-freehold'),
+		'object_types'  => array( 'post' ), // Post type
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Image Gallery', 'progression-elements-freehold'),
+		'desc' => esc_html__('Add-in images to display a gallery.', 'progression-elements-freehold'),
+		'id'         => $prefix . 'gallery',
+		'type'         => 'file_list',
+		'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Video/Audio', 'progression-elements-freehold'),
+		'desc'       => esc_html__('Paste in your video url or embed code', 'progression-elements-freehold'),
+		'id'         => $prefix . 'video_post',
+		'type'       => 'textarea_code',
+		'options' => array( 'disable_codemirror' => true )
+	) );
+
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Featured Image Link', 'progression-elements-freehold'),
+		'id'         => $prefix . 'blog_featured_image_link',
+		'type'       => 'select',
+		'options'     => array(
+			'progression_link_default'   => esc_html__( 'Default link to post', 'progression-elements-freehold' ), // {#} gets replaced by row number
+			'progression_link_lightbox'    => esc_html__( 'Link to image in lightbox pop-up', 'progression-elements-freehold' ),
+			'progression_link_url'    => esc_html__( 'Link to URL', 'progression-elements-freehold' ),
+			'progression_link_url_new_window'    => esc_html__( 'Link to URL (New Window)', 'progression-elements-freehold' ),
+			'progression_lightbox_video'    => esc_html__( 'Link to video (Youtube/Vimeo/.MP4)', 'progression-elements-freehold' ),
+		),
+
+	) );
+	
+
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Optional Link', 'progression-elements-freehold'),
+		'desc' => esc_html__('Make your post link to another page or video pop-up.', 'progression-elements-freehold'),
+		'id'         => $prefix . 'external_link',
+		'type'       => 'text',
+	) );
+	
+
+
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Disable Sidebar on Post', 'progression-elements-freehold'),
+		'id'         => $prefix . 'group_552033a9a46bc',
+		'type'       => 'checkbox',
+	) );
+	
+	
+}
+
+
+
+
+add_action( 'cmb2_admin_init', 'progression_studios_property_meta_box' );
+function progression_studios_property_meta_box() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'pyre_';
+
+	/**
+	 * Sample metabox to demonstrate each field type included
+	 */
+	$progression_studios_cmb = new_cmb2_box( array(
+		'id'            => $prefix . 'metabox_property_settings',
+		'title'         => esc_html__('Property Settings', 'progression-elements-freehold'),
+		'object_types'  => array( 'property' ), // Post type,
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Image Gallery', 'freehold-progression'),
+		'id'         => $prefix . 'gallery',
+		'type'         => 'file_list',
+		'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+
+	) );
+	
+
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Full Address', 'freehold-progression'),
+		'desc' => esc_html__('This address is used for the Map (Longitude, Latitude works as well). Ex: 1457 Golf Course Dr, Windsor, CA 95492', 'freehold-progression'),
+		'id'         => $prefix . 'full_address',
+		'type'       => 'text',
+
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Street Address', 'freehold-progression'),
+		'desc' => esc_html__('Paste in  your street number and street.  Ex: 1457 Golf Course Dr', 'freehold-progression'),
+		'id'         => $prefix . 'address',
+		'type'       => 'text',
+
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('City', 'freehold-progression'),
+		'desc' => esc_html__('Add in your city. Ex: Windsor', 'freehold-progression'),
+		'id'         => $prefix . 'city',
+		'type'       => 'text',
+
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('State', 'freehold-progression'),
+		'desc' => esc_html__('Add in your state. Ex: Ca', 'freehold-progression'),
+		'id'         => $prefix . 'state',
+		'type'       => 'text',
+
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Zip', 'freehold-progression'),
+		'desc' => esc_html__('Add in your zip code. Ex. 95492', 'freehold-progression'),
+		'id'         => $prefix . 'zip',
+		'type'       => 'text',
+
+	) );
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Price', 'freehold-progression'),
+		'desc' => esc_html__('Add in your price using numbers only.', 'freehold-progression'),
+		'id'         => $prefix . 'price',
+		'type' => 'text',
+		'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+				'step' =>'0.1',
+			),
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Text after Price', 'freehold-progression'),
+		'desc' => esc_html__('Add in additional text after price like /month.', 'freehold-progression'),
+		'id'         => $prefix . 'text_after_price',
+		'type' => 'text',
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Bedrooms', 'freehold-progression'),
+		'desc' => esc_html__('Add in number of bedrooms using only numbers.', 'freehold-progression'),
+		'id'         => $prefix . 'bedrooms',
+		'type'       => 'text',
+		'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+				'step' =>'0.1',
+			),
+
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Bathrooms', 'freehold-progression'),
+		'desc' => esc_html__('Add in number of bathrooms using only numbers.', 'freehold-progression'),
+		'id'         => $prefix . 'bathrooms',
+		'type'       => 'text',
+		'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+				'step' =>'0.1',
+			),
+
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Number of Garage Spots', 'freehold-progression'),
+		'desc' => esc_html__('Add in number of garage spots using only numbers.', 'freehold-progression'),
+		'id'         => $prefix . 'garage',
+		'type'       => 'text',
+		'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+				'step' =>'0.1',
+			),
+
+	) );
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Property Size', 'freehold-progression'),
+		'desc' => esc_html__('Add in property size using only numbers.', 'freehold-progression'),
+		'id'         => $prefix . 'property_size',
+		'type'       => 'text',
+		'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+				'step' =>'0.1',
+			),
+
+	) );
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Lot Size', 'freehold-progression'),
+		'desc' => esc_html__('Add in lot size using numbers and letters.', 'freehold-progression'),
+		'id'         => $prefix . 'lot',
+		'type'       => 'textarea_code',
+		'options' => array( 'disable_codemirror' => true )
+
+	) );
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Year Built', 'freehold-progression'),
+		'desc' => esc_html__('Add in year built using only numbers.', 'freehold-progression'),
+		'id'         => $prefix . 'built',
+		'type'       => 'text',
+		'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+				'step' =>'0.1',
+			),
+
+	) );
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Custom Map Icon', 'freehold-progression'),
+		'desc' => esc_html__('Add in a cusotm map icon here.', 'freehold-progression'),
+		'id'         => $prefix . 'icon_image',
+		'type'       => 'file',
+
+	) );
+	
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name'       => esc_html__('Banner', 'freehold-progression'),
+		
+		'id'         => $prefix . 'banner',
+		'type'       => 'select',
+		'options'     => array(
+			'none'   => esc_html__( 'No Banner', 'freehold-progression' ), // {#} gets replaced by row number
+			'recent'   => esc_html__( 'New', 'freehold-progression' ), // {#} gets replaced by row number
+			'reduced'   => esc_html__( 'Reduced', 'freehold-progression' ), // {#} gets replaced by row number
+			'open-house'    => esc_html__( 'Open House', 'freehold-progression' ),
+			'sold'    => esc_html__( 'Sold', 'freehold-progression' ),
+			'auction'    => esc_html__( 'Auction', 'freehold-progression' ),
+		),
+
+	) );
+	
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Open House Date', 'freehold-progression'),
+		'desc' => esc_html__('Select the Open House Date', 'freehold-progression'),
+		'id'         => $prefix . 'open_house_date',
+		'type'       => 'text_date',
+
+	) );
+
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Open House Time', 'freehold-progression'),
+		'desc' => esc_html__('Enter the Open House times (ex 12:00 pm - 2:00 pm).', 'freehold-progression'),
+		'id'         => $prefix . 'open_house_time',
+		'type'       => 'text',
+
+	) );
+
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Video', 'freehold-progression'),
+		'desc' => esc_html__('Add in video URL. Ex: https://vimeo.com/24456787', 'freehold-progression'),
+		'id'         => $prefix . 'video',
+		'type'       => 'text',
+
+	) );
+	
+	
+	$progression_studios_cmb->add_field( array(
+		'name' => esc_html__('Disable Agent', 'freehold-progression'),
+		'desc' => esc_html__('Check the box to disable agent.', 'freehold-progression'),
+		'id'         => $prefix . 'no_agent',
+		'type'       => 'checkbox',
+
+	) );
+}
+
+
+
+
+
+add_action( 'cmb2_admin_init', 'progression_repeatable_property_meta_box' );
+/**
+ * Hook in and add a metabox to demonstrate repeatable grouped fields
+ */
+function progression_repeatable_property_meta_box() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'progression_';
+
+	/**
+	 * Repeatable Field Groups
+	 */
+	$cmb_group = new_cmb2_box( array(
+		'id'           => $prefix . 'metabox',
+		'title'        => esc_html__( 'Additional Property Information', 'freehold-progression' ),
+		'object_types' => array( 'property' ),
+	) );
+
+	// $group_field_id is the field id string, so in this case: $prefix . 'demo'
+	$group_field_id = $cmb_group->add_field( array(
+		'id'          => $prefix . 'custom_additional',
+		'type'        => 'group',
+		'description' => esc_html__( 'Generates reusable form entries', 'freehold-progression' ),
+		'options'     => array(
+			'group_title'   => esc_html__( 'Custom Property Info {#}', 'freehold-progression' ), // {#} gets replaced by row number
+			'add_button'    => esc_html__( 'Add Another Entry', 'freehold-progression' ),
+			'remove_button' => esc_html__( 'Remove Entry', 'freehold-progression' ),
+			'sortable'      => true, // beta
+		),
+	) );
+
+	/**
+	 * Group fields works the same, except ids only need
+	 * to be unique to the group. Prefix is not needed.
+	 *
+	 * The parent field's id needs to be passed as the first argument.
+	 */
+	$cmb_group->add_group_field( $group_field_id, array(
+		'name'       => esc_html__( 'Information Title', 'freehold-progression' ),
+		'id'         => 'title',
+		'type'       => 'text',
+	) );
+
+	$cmb_group->add_group_field( $group_field_id, array(
+		'name'        => esc_html__( 'Information Specification', 'freehold-progression' ),
+		'id'          => 'description',
+		'type'        => 'text',
+	) );
+
+
+
+}
+
+
+
+
+
+add_action( 'cmb2_admin_init', 'progression_user_meta_box' );
+/**
+ * Hook in and add a metabox to demonstrate repeatable grouped fields
+ */
+function progression_user_meta_box() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'progression_';
+
+	/**
+	 * Sample metabox to demonstrate each field type included
+	 */
+	$progression_cmb_demo = new_cmb2_box( array(
+		'id'            => $prefix . 'user_agent_info',
+		'title'         => esc_html__('Slider Settings', 'freehold-progression'),
+		'object_types'     => array( 'user' ), // Tells CMB2 to use user_meta vs post_meta
+
+	) );
+	
+	$progression_cmb_demo->add_field( array(
+		'name'     => esc_html__( 'Agent Information', 'freehold-progression' ),
+		'id'       => $prefix . 'extra_info',
+		'type'     => 'title',
+		'on_front' => false,
+	) );
+	
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Disable Agent', 'freehold-progression' ),
+		'desc' => esc_html__( 'Check box to remove this user from the agent list', 'freehold-progression' ),
+		'id'   => $prefix . 'disable_agent_avlar',
+		'type' => 'checkbox',
+	) );
+
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Agent Sub-headline', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'user_sub_headline',
+		'type' => 'text',
+	) );
+
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Agent E-mail', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'mail_agent_top',
+		'type' => 'text',
+	) );
+	
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Office Phone', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'phone_one',
+		'type' => 'text',
+	) );
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Cell Phone', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'phone_two',
+		'type' => 'text',
+	) );
+	
+	
+
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Facebook URL', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'facebookurl',
+		'type' => 'text_url',
+	) );
+
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Twitter URL', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'twitterurl',
+		'type' => 'text_url',
+	) );
+
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Google+ URL', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'googleplusurl',
+		'type' => 'text_url',
+	) );
+
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Linkedin URL', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'linkedinurl',
+		'type' => 'text_url',
+	) );
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Houzz URL', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'houzzurl',
+		'type' => 'text_url',
+	) );
+	
+
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Instagram URL', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'instagramurl',
+		'type' => 'text_url',
+	) );
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'Youtube URL', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'youtubeurl',
+		'type' => 'text_url',
+	) );
+	
+	$progression_cmb_demo->add_field( array(
+		'name' => esc_html__( 'E-mail Icon', 'freehold-progression' ),
+		'desc' => esc_html__( 'Leave blank to hide this field', 'freehold-progression' ),
+		'id'   => $prefix . 'emailmailto',
+		'type' => 'text',
+	) );
+
+	
+	
+
+}
+
