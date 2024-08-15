@@ -1,0 +1,12 @@
+These were the files updated with notes on the changes:
+- wp-content/plugins/progression-elements-freehold/inc/custom-meta.php
+-- Added two new functions for the new field
+-- Used the "text_date" field type that allows a user to pick a date
+-- Removed the old function
+-- CMB2 Documentation is here - https://github.com/CMB2/CMB2/wiki/Field-Types#text_date
+- wp-content/themes/freehold-progression/sidebar-property.php
+-- Replaced the old code for the sidebar on line 48
+-- Added conditionals to respond to the new date and time fields
+- wp-content/themes/freehold-progression/template-parts/content-property-elementor.php
+-- Replaced the old code for the sidebar on line 64
+-- Added conditionals to respond to the new date and time fields
