@@ -1,4 +1,4 @@
-These were the files updated with notes on the changes:
+These were the files updated with notes on the changes (FreeHold Version Version 4.3 - 18 June 2024):
 - wp-content/plugins/progression-elements-freehold/inc/custom-meta.php
 -- Added two new functions for the new field
 -- Used the "text_date" field type that allows a user to pick a date
