@@ -18,7 +18,7 @@
 			
 			<div id="header-progression-property-search-field">
 				<label for="header-search-field-progression" class="progression-studios-header-search-assistive-text"><i class="fa fa-search" aria-hidden="true"></i></label>
-				<input type="text" id="header-search-field-progression" name="search_keyword" placeholder="<?php echo esc_html__( 'Enter an address, postal code or city...', 'freehold-progression' ); ?>" value="<?php echo esc_attr($_GET['search_keyword']); ?>" />
+				<input type="text" id="header-search-field-progression" name="search_keyword" placeholder="<?php echo esc_html__( 'Enter an address, zip code or city...', 'freehold-progression' ); ?>" value="<?php echo esc_attr($_GET['search_keyword']); ?>" />
 				
 				<input type="submit" id="header-submit-search-pro" name="submit" value="<?php echo esc_html__( 'Search', 'freehold-progression' ); ?>" />
 				<div class="clearfix-pro"></div>

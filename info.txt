@@ -10,3 +10,5 @@ These were the files updated with notes on the changes (FreeHold Version Version
 - wp-content/themes/freehold-progression/template-parts/content-property-elementor.php
 -- Replaced the old code for the sidebar on line 64
 -- Added conditionals to respond to the new date and time fields
+- wp-content/themes/freehold-progression/header/search-property.php
+-- Changed the default search text from zip to postal on line 21
