@@ -351,6 +351,7 @@ function progression_studios_property_meta_box() {
 			'none'   => esc_html__( 'No Banner', 'freehold-progression' ), // {#} gets replaced by row number
 			'recent'   => esc_html__( 'New', 'freehold-progression' ), // {#} gets replaced by row number
 			'reduced'   => esc_html__( 'Reduced', 'freehold-progression' ), // {#} gets replaced by row number
+			'price-change'   => esc_html__( 'Price Change', 'freehold-progression' ), // {#} gets replaced by row number
 			'open-house'    => esc_html__( 'Open House', 'freehold-progression' ),
 			'sold'    => esc_html__( 'Sold', 'freehold-progression' ),
 			'auction'    => esc_html__( 'Auction', 'freehold-progression' ),
