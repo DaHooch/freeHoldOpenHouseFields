@@ -16,7 +16,7 @@
 					<div class="pro-overlay-price">
 						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'recent') : ?><div class="overlay-status-pro recent-pro"><?php echo esc_html__( 'New', 'freehold-progression' ); ?></div><?php endif; ?>
 						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'reduced') : ?><div class="overlay-status-pro reduced-pro"><?php echo esc_html__( 'Reduced', 'freehold-progression' ); ?></div><?php endif; ?>
-						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'price-change') : ?><div class="overlay-status-pro price-change-pro"><?php echo esc_html__( 'Price Change', 'freehold-progression' ); ?></div><?php endif; ?>
+						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'price-change') : ?><div class="overlay-status-pro reduced-pro"><?php echo esc_html__( 'Price Change', 'freehold-progression' ); ?></div><?php endif; ?>
 						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'open-house') : ?><div class="overlay-status-pro open-house-pro"><?php echo esc_html__( 'Open House', 'freehold-progression' ); ?></div><?php endif; ?>
 						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'sold') : ?><div class="overlay-status-pro sold-pro"><?php echo esc_html__( 'Sold', 'freehold-progression' ); ?></div><?php endif; ?>
 						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'auction') : ?><div class="overlay-status-pro auction-pro"><?php echo esc_html__( 'Auction', 'freehold-progression' ); ?></div><?php endif; ?>
