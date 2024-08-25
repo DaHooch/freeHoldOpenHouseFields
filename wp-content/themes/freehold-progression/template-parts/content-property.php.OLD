@@ -1,0 +1,82 @@
+<?php
+/**
+ * @package pro
+ */
+?>
+
+<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>	
+	<div class="progression-studios-property-index">
+			
+		
+		<?php if(has_post_thumbnail()): ?>
+			<div class="progression-studios-property-index-image">
+				<a href="<?php the_permalink(); ?>">
+					<?php the_post_thumbnail('progression-studios-property-index'); ?>
+					<div class="pro-overlay-price">
+						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'recent') : ?><div class="overlay-status-pro recent-pro"><?php echo esc_html__( 'New', 'freehold-progression' ); ?></div><?php endif; ?>
+						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'reduced') : ?><div class="overlay-status-pro reduced-pro"><?php echo esc_html__( 'Reduced', 'freehold-progression' ); ?></div><?php endif; ?>
+						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'open-house') : ?><div class="overlay-status-pro open-house-pro"><?php echo esc_html__( 'Open House', 'freehold-progression' ); ?></div><?php endif; ?>
+						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'sold') : ?><div class="overlay-status-pro sold-pro"><?php echo esc_html__( 'Sold', 'freehold-progression' ); ?></div><?php endif; ?>
+						<?php if(get_post_meta($post->ID, 'pyre_banner', true) == 'auction') : ?><div class="overlay-status-pro auction-pro"><?php echo esc_html__( 'Auction', 'freehold-progression' ); ?></div><?php endif; ?>
+						<div class="clearfix-pro"></div>
+					</div>
+				</a>
+			</div><!-- close .progression-studios-feaured-image -->
+			<div class="progression-studios-property-index-has-image-content">
+		<?php endif; ?>
+		
+		<?php if(get_post_meta($post->ID, 'pyre_address', true)) : ?>
+			<h2 class="progression-property-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html( get_post_meta($post->ID, 'pyre_address', true) );?></a></h2>
+			
+			<?php if(get_post_meta($post->ID, 'pyre_city', true) || get_post_meta($post->ID, 'pyre_state', true) || get_post_meta($post->ID, 'pyre_zip', true)) : ?>
+			<div class="progression-property-title-address-meta">
+				
+				<?php if(get_post_meta($post->ID, 'pyre_city', true)) : ?>
+					<span class="progression-property-title-meta-city"><?php echo esc_html( get_post_meta($post->ID, 'pyre_city', true) );?>, </span>
+				<?php endif; ?>
+				<?php if(get_post_meta($post->ID, 'pyre_state', true)) : ?>
+					<span class="progression-property-title-meta-state"><?php echo esc_html( get_post_meta($post->ID, 'pyre_state', true) );?>, </span>
+				<?php endif; ?>
+				<?php if(get_post_meta($post->ID, 'pyre_zip', true)) : ?>
+					<span class="progression-property-title-meta-zip"><?php echo esc_html( get_post_meta($post->ID, 'pyre_zip', true) );?></span>
+				<?php endif; ?>
+			</div><!-- close. property-title-address-meta-->
+			<?php endif; ?>
+			
+		<?php else: ?>
+			<h2 class="progression-property-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+		<?php endif; ?>
+		
+		<?php if(get_post_meta($post->ID, 'pyre_price', true)) : ?>
+			<div class="progression-property-index-price"><?php get_template_part( 'template-parts/price', 'property'); ?></div>
+		<?php endif; ?>
+		
+		
+		<ul class="progression-property-index-meta-list">
+			<?php if(get_post_meta($post->ID, 'pyre_property_size', true)) : ?><li class="property-meta-size"><i class="fa fa-cube" aria-hidden="true"></i><span><?php echo esc_html( get_post_meta($post->ID, 'pyre_property_size', true) );?> </span><?php echo wp_kses( __('FT<sup>2</sup>', 'freehold-progression' ) , TRUE); ?></li><?php endif; ?>
+			<?php if(get_post_meta($post->ID, 'pyre_bedrooms', true)) : ?><li class="property-meta-bedrooms"><i class="fa fa-bed" aria-hidden="true"></i><span><?php echo esc_html( get_post_meta($post->ID, 'pyre_bedrooms', true) );?> </span> <?php esc_html_e( 'Beds', 'freehold-progression' ); ?></li><?php endif; ?>
+			<?php if(get_post_meta($post->ID, 'pyre_bathrooms', true)) : ?><li class="property-meta-bathrooms"><i class="fa fa-bath" aria-hidden="true"></i><span><?php echo esc_html( get_post_meta($post->ID, 'pyre_bathrooms', true) );?> </span> <?php esc_html_e( 'Baths', 'freehold-progression' ); ?></li><?php endif; ?>
+			<?php if(get_post_meta($post->ID, 'pyre_garage', true)) : ?><li class="property-meta-garage"><i class="fa fa-car" aria-hidden="true"></i><span><?php echo esc_html( get_post_meta($post->ID, 'pyre_garage', true) );?> </span> <?php esc_html_e( 'Car Garage', 'freehold-progression' ); ?></li><?php endif; ?>
+			<?php if(get_post_meta($post->ID, 'pyre_built', true)) : ?><li class="property-meta-listing-date"><i class="fa fa-calendar" aria-hidden="true"></i><span><?php esc_html_e( 'Built', 'freehold-progression' ); ?> </span> <?php echo esc_html( get_post_meta($post->ID, 'pyre_built', true) );?></li><?php endif; ?>
+			<?php if(get_post_meta($post->ID, 'pyre_open_house', true)) : ?><li class="property-meta-listing-open-house"><span><?php esc_html_e( 'Open House:', 'freehold-progression' ); ?> </span> <?php echo esc_html( get_post_meta($post->ID, 'pyre_open_house', true) );?></li><?php endif; ?>
+		</ul>
+		
+		<div class="clearfix-pro"></div>
+		<?php if(has_post_thumbnail()): ?></div><!-- close .progression-studios-property-index-has-image-content --><?php endif; ?>
+			
+		<div class="clearfix-pro"></div>
+		
+		<div class="grid2column-progression property-index-footer">
+			<?php $terms = get_the_terms( $post->ID , 'property_status' );  if ( !empty( $terms ) ) : ?>
+			<div class="progression-property-tax-status"><i class="fa fa-tag" aria-hidden="true"></i><span><?php esc_html_e( 'Property Status: ', 'freehold-progression' ); ?></span><?php echo get_the_term_list( $wp_query->post->ID, 'property_status', '', ', ', '' );?></div>
+			<?php endif; ?>
+		</div><!-- close .grid2column-progression -->
+		
+		<div class="grid2column-progression lastcolumn-progression property-index-footer">
+			<a href="<?php the_permalink(); ?>" class="progression-property-index-button"><?php esc_html_e( 'View Listing', 'freehold-progression' ); ?></a>
+		</div><!-- close .grid2column-progression -->
+	
+	<div class="clearfix-pro"></div>
+	
+	</div><!-- close .progression-studios-property-index -->
+</div><!-- #post-## -->
